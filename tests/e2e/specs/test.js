@@ -1,8 +1,14 @@
-// https://docs.cypress.io/api/introduction/api.html
-
-describe('My First Test', () => {
-  it('Visits the app root url', () => {
-    cy.visit('/')
-    cy.contains('h1', 'Welcome to Your Vue.js App')
-  })
-})
+describe("Movies", () => {
+  it("Searches movies", () => {
+    cy.visit("/")
+      .getByPlaceholderText(/Search your movies/)
+      .type("Avengers{enter}")
+      .getAllByText(/The Avengers/)
+      .first()
+      .click()
+      .url()
+      .should("eq", `${Cypress.config().baseUrl}tt0848228`)
+      .getByText(/Earth's mightiest heroes/)
+      .should("be.visible");
+  });
+});
