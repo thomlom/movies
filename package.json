@@ -7,9 +7,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "start-server-and-test serve test:e2e",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test:e2e": "is-ci \"test:e2e:run\" \"test:e2e:dev\"",
+    "test:e2e:run": "start-server-and-test start http://localhost:8080 cy:run",
+    "test:e2e:dev": "start-server-and-test start http://localhost:8080 cy:open"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -21,7 +24,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-e2e-cypress": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-plugin-unit-jest": "^3.8.0",
     "@vue/cli-service": "^3.7.0",
@@ -29,11 +31,14 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "cypress": "^3.3.1",
     "cypress-testing-library": "^3.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "is-ci-cli": "^1.1.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
+    "start-server-and-test": "^1.9.1",
     "vue-template-compiler": "^2.5.21"
   }
 }
