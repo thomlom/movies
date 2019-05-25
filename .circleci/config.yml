@@ -1,37 +1,9 @@
-version: 2
-jobs:
-  test:e2e:
-    docker:
-      - image: cypress/base:8
-        environment:
-          # this enables colors in the output
-          TERM: xterm
-    working_directory: ~/app
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-            - v1-deps-{{ .Branch }}
-            - v1-deps
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ~/.cache # cache both yarn and Cypress!
-      - run:
-          name: Running E2E Tests
-          command: npm run test:e2e
-      - store_test_results:
-          path: multiple-results
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
+version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.5.1
 workflows:
-  version: 2
-  test:
+  build:
     jobs:
-      - test:e2e
+      - cypress/run:
+          start: npm run serve
+          wait-on: "http://localhost:8080"
