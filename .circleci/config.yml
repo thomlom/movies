@@ -1,28 +1,37 @@
 version: 2
 jobs:
-  test:
+  test:e2e:
     docker:
-      - image: circleci/node:8
+      - image: cypress/base:8
+        environment:
+          # this enables colors in the output
+          TERM: xterm
+    working_directory: ~/app
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
       - run:
-          working_directory: functions
-          name: Install dependencies
-          command: npm install
+          name: Install Dependencies
+          command: npm run install --frozen-lockfile
       - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache # cache both yarn and Cypress!
       - run:
-          working_directory: functions
-          name: E2E Tests
+          name: Running E2E Tests
           command: npm run test:e2e
+      - store_test_results:
+          path: multiple-results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
 workflows:
   version: 2
   test:
     jobs:
-      - test
+      - test:e2e
