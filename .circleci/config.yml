@@ -20,7 +20,7 @@ jobs:
       - save_cache:
           key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
-            - ~/.cache # cache both yarn and Cypress!
+            - ~/.cache
       - run:
           name: Running E2E Tests
           command: npm run test:e2e -- --headless
