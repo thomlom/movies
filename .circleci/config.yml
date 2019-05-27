@@ -1,5 +1,24 @@
 version: 2
 jobs:
+  test:unit:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Unit testing
+          command: npm run test:unit
   test:e2e:
     docker:
       - image: cypress/base:8
