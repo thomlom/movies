@@ -27,54 +27,54 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
-import Poster from './Poster'
+import Poster from "./Poster";
 
 export default {
-  name: 'movie-detail',
+  name: "movie-detail",
   components: {
     Poster
   },
   computed: {
-    ...mapState(['movie']),
-    fields () {
+    ...mapState(["movie"]),
+    fields() {
       return [
         {
-          name: 'Director',
+          name: "Director",
           value: this.movie.Director
         },
         {
-          name: 'Actors',
+          name: "Actors",
           value: this.movie.Actors
         },
         {
-          name: 'Country',
+          name: "Country",
           value: this.movie.Country
         },
         {
-          name: 'Production',
+          name: "Production",
           value: this.movie.Production
         },
         {
-          name: 'Box Office',
+          name: "Box Office",
           value: this.movie.BoxOffice
         },
         {
-          name: 'Awards',
+          name: "Awards",
           value: this.movie.Awards
         }
-      ]
+      ];
     }
   },
-  async mounted () {
-    const imdbId = this.$route.params.imdbId
+  async mounted() {
+    const imdbId = this.$route.params.imdbId;
     if (!this.movie || (this.movie && this.movie.imdbID !== imdbId)) {
-      return this.getMovie(imdbId)
+      return this.getMovie(imdbId);
     }
   },
-  methods: mapActions(['getMovie'])
-}
+  methods: mapActions(["getMovie"])
+};
 </script>
 
 <style lang="scss" scoped>

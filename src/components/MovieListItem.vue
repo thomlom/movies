@@ -1,16 +1,16 @@
 <template>
   <li class="movie" @click="$router.push(`/${movie.imdbID}`)">
-    <poster class="movie__poster" :posterUrl="movie.Poster" :title="movie.Title" />
+    <poster class="movie__poster" :posterUrl="movie.Poster" :title="movie.Title"/>
     <p class="movie__title">{{ movie.Title }}</p>
     <span class="movie__year">{{ movie.Year }}</span>
   </li>
 </template>
 
 <script>
-import Poster from './Poster'
+import Poster from "./Poster";
 
 export default {
-  name: 'movie-list-item',
+  name: "movie-list-item",
   components: {
     Poster
   },
@@ -20,7 +20,7 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

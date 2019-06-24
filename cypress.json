@@ -1,5 +1,6 @@
 {
-  "pluginsFile": "tests/e2e/plugins/index.js",
+  "baseUrl": "http://localhost:8080",
+  "integrationFolder": "cypress/e2e",
   "viewportHeight": 900,
   "viewportWidth": 400
 }

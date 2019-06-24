@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Redirect to the movie detail page on click 1`] = `
+<li class="movie"><img src="test.jpg" class="poster movie__poster" title="Avengers">
+  <p class="movie__title">Avengers</p> <span class="movie__year">2010</span>
+</li>
+`;
